@@ -1,0 +1,49 @@
+{
+  "name": "react-smart-image",
+  "author": "Sarthak Agarwal",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Smart, responsive React image component with BlurHash/LQIP placeholders and CDN-friendly srcset/sizes.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "dependencies": {
+    "blurhash": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.9",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "image",
+    "responsive-images",
+    "srcset",
+    "sizes",
+    "blurhash",
+    "lqip",
+    "placeholder",
+    "cdn",
+    "lazy-loading"
+  ]
+}

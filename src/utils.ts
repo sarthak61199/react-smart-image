@@ -4,12 +4,12 @@ import { Breakpoints } from "./types";
 export const getSrcSet = (
   breakpoints: Breakpoints | undefined,
   transformUrl: ((src: string, width?: number) => string) | undefined,
-  src: string | undefined
+  src: string
 ) => {
   if (!breakpoints) return undefined;
   return Object.values(breakpoints)
     .map((bp) => {
-      const url = transformUrl ? transformUrl(src!, bp) : `${src}?w=${bp}`;
+      const url = transformUrl ? transformUrl(src, bp) : `${src}?w=${bp}`;
       return `${url} ${bp}w`;
     })
     .join(", ");

@@ -62,7 +62,7 @@ export const Image = ({
       )}
 
       <img
-        src={transformUrl ? transformUrl(src!, width) : src}
+        src={transformUrl ? transformUrl(src, width) : src}
         alt={alt}
         width={width}
         height={height}

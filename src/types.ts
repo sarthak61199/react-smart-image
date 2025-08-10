@@ -2,12 +2,35 @@ import { ImgHTMLAttributes } from "react";
 
 export type Breakpoints = Record<string, number>;
 
-export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+type BaseImageProps = Omit<
+  ImgHTMLAttributes<HTMLImageElement>,
+  "src" | "alt"
+> & {
+  src: string;
+  alt: string;
   width?: number;
   height?: number;
   breakpoints?: Breakpoints;
-  placeholder?: "blurhash" | "lqip" | "none";
-  blurhash?: string;
   priority?: boolean;
   transformUrl?: (src: string, width?: number) => string;
-}
+};
+
+type BlurhashPlaceholderProps = BaseImageProps & {
+  placeholder: "blurhash";
+  blurhash: string;
+};
+
+type LqipPlaceholderProps = BaseImageProps & {
+  placeholder: "lqip";
+  blurhash?: never;
+};
+
+type NonePlaceholderProps = BaseImageProps & {
+  placeholder?: "none" | undefined;
+  blurhash?: never;
+};
+
+export type ImageProps =
+  | BlurhashPlaceholderProps
+  | LqipPlaceholderProps
+  | NonePlaceholderProps;

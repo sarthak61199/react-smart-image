@@ -1,4 +1,4 @@
-# react-smart-image
+# @sarthak61199/react-smart-image
 
 An ergonomic, lightweight React component for smart, responsive images with optional BlurHash and LQIP placeholders.
 
@@ -14,7 +14,7 @@ An ergonomic, lightweight React component for smart, responsive images with opti
 ## Installation
 
 ```bash
-npm install react-smart-image
+npm install @sarthak61199/react-smart-image
 ```
 
 Peer dependency:
@@ -24,7 +24,7 @@ Peer dependency:
 ## Quick start
 
 ```tsx
-import { Image } from "react-smart-image";
+import { Image } from "@sarthak61199/react-smart-image";
 
 export default function Example() {
   return (
@@ -107,7 +107,7 @@ BlurHash placeholder:
 Types are bundled. You can import them as:
 
 ```ts
-import type { ImageProps, Breakpoints } from "react-smart-image";
+import type { ImageProps, Breakpoints } from "@sarthak61199/react-smart-image";
 ```
 
 ## Build
@@ -116,6 +116,6 @@ The package ships with both ESM and CJS builds and is tree‑shakable. Types are
 
 ## License
 
-MIT © react-smart-image contributors
+MIT © @sarthak61199/react-smart-image contributors
 
 

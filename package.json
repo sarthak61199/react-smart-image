@@ -2,7 +2,7 @@
   "name": "react-smart-image",
   "author": "Sarthak Agarwal",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Smart, responsive React image component with BlurHash/LQIP placeholders and CDN-friendly srcset/sizes.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

@@ -26,6 +26,7 @@ export function useInView<T extends Element = Element>(
 
       if (!node) return;
 
+      // For SSR, we assume the element is already in view
       if (
         typeof window === "undefined" ||
         !("IntersectionObserver" in window)

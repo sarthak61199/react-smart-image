@@ -7,18 +7,37 @@ export const getSrcSet = (
   src: string
 ) => {
   if (!breakpoints) return undefined;
-  return Object.values(breakpoints)
-    .map((bp) => {
-      const url = transformUrl ? transformUrl(src, bp) : `${src}?w=${bp}`;
-      return `${url} ${bp}w`;
+  const entries = Object.entries(breakpoints)
+    .map(([k, v]) => [k, v] as const)
+    .sort((a, b) => Number(a[0]) - Number(b[0]));
+  return entries
+    .map(([_, rawVal]) => {
+      const numeric =
+        typeof rawVal === "number"
+          ? rawVal
+          : parseInt(rawVal as unknown as string, 10);
+      if (Number.isFinite(numeric)) {
+        const url = transformUrl ? transformUrl(src, numeric) : `${src}?w=${numeric}`;
+        return `${url} ${numeric}w`;
+      }
+      return undefined;
     })
+    .filter(Boolean)
     .join(", ");
 };
 
 export const getSizes = (breakpoints: Breakpoints | undefined) => {
   if (!breakpoints) return undefined;
-  return Object.keys(breakpoints)
-    .map((bp) => `(min-width: ${bp}px) ${breakpoints[bp]}px`)
+  const entries = Object.entries(breakpoints)
+    .map(([k, v]) => [k, v] as const)
+    .sort((a, b) => Number(a[0]) - Number(b[0]));
+  return entries
+    .map(([bp, val]) => {
+      // If value is a number treat as px, otherwise use as-is (e.g. 50vw)
+      return `(min-width: ${bp}px) ${
+        typeof val === "number" ? `${val}px` : val
+      }`;
+    })
     .join(", ");
 };
 

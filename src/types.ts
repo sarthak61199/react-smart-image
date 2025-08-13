@@ -1,6 +1,6 @@
 import { ImgHTMLAttributes } from "react";
 
-export type Breakpoints = Record<string, number>;
+export type Breakpoints = Record<string, number | string>; // value may be numeric px or an expression like "50vw"
 
 type BaseImageProps = Omit<
   ImgHTMLAttributes<HTMLImageElement>,

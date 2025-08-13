@@ -1,10 +1,10 @@
 import { decode } from "blurhash";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { forwardRef, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useInView } from "../hooks/useInView";
 import { ImageProps } from "../types";
 import { getAspectStyle, getSizes, getSrcSet } from "../utils";
 
-export const Image = ({
+export const Image = forwardRef<HTMLImageElement, ImageProps>(({
   src,
   alt,
   width,
@@ -16,8 +16,9 @@ export const Image = ({
   transformUrl,
   style,
   deferUntilInView,
+  onLoad,
   ...rest
-}: ImageProps) => {
+}: ImageProps, ref) => {
   const [loaded, setLoaded] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [setInViewRef, inView] = useInView({ rootMargin: "0px 0px 200px 0px" });
@@ -61,6 +62,29 @@ export const Image = ({
     return `${src}?lqip`;
   }, [placeholder, transformUrl, src]);
 
+  // Compose user onLoad with internal fade-in state update
+  const composedOnLoad = useCallback(
+    (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+      setLoaded(true);
+      onLoad?.(e);
+    },
+    [onLoad]
+  );
+
+  // Merge forwarded ref with IntersectionObserver ref
+  const setMergedRef = useCallback(
+    (node: HTMLImageElement | null) => {
+      setInViewRef(node);
+      if (!ref) return;
+      if (typeof ref === "function") {
+        ref(node);
+      } else {
+        (ref as RefObject<HTMLImageElement | null>).current = node;
+      }
+    },
+    [ref, setInViewRef]
+  );
+
   return (
     <div style={{ position: "relative", ...aspectStyle }}>
       {placeholder === "blurhash" && blurhash && (
@@ -77,6 +101,7 @@ export const Image = ({
             filter: "blur(2px)",
             transition: "opacity 0.3s ease",
             opacity: loaded ? 0 : 1,
+            pointerEvents: "none",
           }}
         />
       )}
@@ -92,14 +117,14 @@ export const Image = ({
             filter: "blur(4px)",
             transition: "opacity 0.3s ease",
             opacity: loaded ? 0 : 1,
+            pointerEvents: "none",
           }}
         />
       )}
 
       <img
-        ref={setInViewRef}
+        ref={setMergedRef}
         // Omit src attribute entirely if deferring
-        {...(resolvedSrc ? { src: resolvedSrc } : {})}
         alt={alt}
         width={width}
         height={height}
@@ -118,9 +143,12 @@ export const Image = ({
           position: "relative",
           zIndex: 1,
         }}
-        onLoad={() => setLoaded(true)}
         {...rest}
+        {...(resolvedSrc ? { src: resolvedSrc } : {})}
+        onLoad={composedOnLoad}
       />
     </div>
   );
-};
+});
+
+Image.displayName = "Image";

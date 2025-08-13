@@ -1,3 +1,3 @@
-export { Image } from "./Image";
+export { Image } from "./components/Image";
 export type { Breakpoints, ImageProps } from "./types";
-export { useInView } from "./useInView";
+export { useInView } from "./hooks/useInView";

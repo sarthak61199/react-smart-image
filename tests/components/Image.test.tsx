@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor, act } from '@testing-library/react'
-import { Image } from './Image'
-import { triggerIntersection, mockTransformUrl } from './test/utils'
+import { Image } from '../../src/components/Image'
+import { triggerIntersection, mockTransformUrl } from '../__helpers__/utils'
 import React from 'react'
 
 // Mock blurhash decode function

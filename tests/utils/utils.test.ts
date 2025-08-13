@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { getSrcSet, getSizes, getAspectStyle } from './utils'
-import { Breakpoints } from './types'
+import { getSrcSet, getSizes, getAspectStyle } from '../../src/utils'
+import { Breakpoints } from '../../src/types'
 
 describe('utils', () => {
     describe('getSrcSet', () => {

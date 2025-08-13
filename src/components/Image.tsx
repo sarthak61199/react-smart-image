@@ -1,8 +1,8 @@
 import { decode } from "blurhash";
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { ImageProps } from "./types";
-import { getAspectStyle, getSizes, getSrcSet } from "./utils";
-import { useInView } from "./useInView";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useInView } from "../hooks/useInView";
+import { ImageProps } from "../types";
+import { getAspectStyle, getSizes, getSrcSet } from "../utils";
 
 export const Image = ({
   src,

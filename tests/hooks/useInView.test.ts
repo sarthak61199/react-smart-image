@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { useInView } from './useInView'
-import { triggerIntersection } from './test/utils'
+import { useInView } from '../../src/hooks/useInView'
+import { triggerIntersection } from '../__helpers__/utils'
 
 describe('useInView', () => {
     beforeEach(() => {

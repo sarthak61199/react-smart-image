@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { Breakpoints } from "./types";
+import { Breakpoints } from "../types";
 
 export const getSrcSet = (
   breakpoints: Breakpoints | undefined,

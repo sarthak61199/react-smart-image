@@ -9,7 +9,7 @@ An ergonomic, lightweight React component for smart, responsive images with opti
   - `blurhash` using the `blurhash` decoder
   - `lqip` via a low‑quality background image
 - Works with any image CDN via a `transformUrl` function
-- Types included, ESM and CJS builds, tree‑shakable
+- Types included, ESM build, tree‑shakable
 - Viewport‑based powered by Intersection Observer
 
 ## Installation
@@ -146,7 +146,7 @@ import type { ImageProps, Breakpoints } from "@sarthak61199/react-smart-image";
 
 ## Build
 
-The package ships with both ESM and CJS builds and is tree‑shakable. Types are generated alongside the build output.
+The package ships with an ESM build and is tree‑shakable. Types are generated alongside the build output.
 
 ## License
 

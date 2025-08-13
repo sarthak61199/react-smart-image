@@ -4,8 +4,8 @@
   "license": "MIT",
   "version": "0.1.2",
   "description": "Smart, responsive React image component with BlurHash/LQIP placeholders and CDN-friendly srcset/sizes.",
+  "type": "module",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -14,8 +14,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -23,7 +22,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format esm --dts",
     "prepublishOnly": "npm run build",
     "test": "vitest",
     "test:run": "vitest run",

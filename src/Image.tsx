@@ -2,6 +2,7 @@ import { decode } from "blurhash";
 import React, { useEffect, useRef, useState } from "react";
 import { ImageProps } from "./types";
 import { getAspectStyle, getSizes, getSrcSet } from "./utils";
+import { useInView } from "./useInView";
 
 export const Image = ({
   src,
@@ -14,10 +15,12 @@ export const Image = ({
   priority = false,
   transformUrl,
   style,
+  deferUntilInView,
   ...rest
 }: ImageProps) => {
   const [loaded, setLoaded] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [setInViewRef, inView] = useInView({ rootMargin: "0px 0px 200px 0px" });
 
   useEffect(() => {
     if (placeholder === "blurhash" && blurhash && canvasRef.current) {
@@ -62,12 +65,23 @@ export const Image = ({
       )}
 
       <img
-        src={transformUrl ? transformUrl(src, width) : src}
+        ref={setInViewRef}
+        src={
+          deferUntilInView && !inView
+            ? undefined
+            : transformUrl
+            ? transformUrl(src, width)
+            : src
+        }
         alt={alt}
         width={width}
         height={height}
-        srcSet={getSrcSet(breakpoints, transformUrl, src)}
-        sizes={getSizes(breakpoints)}
+        srcSet={
+          deferUntilInView && !inView
+            ? undefined
+            : getSrcSet(breakpoints, transformUrl, src)
+        }
+        sizes={deferUntilInView && !inView ? undefined : getSizes(breakpoints)}
         loading={priority ? "eager" : "lazy"}
         style={{
           width: "100%",

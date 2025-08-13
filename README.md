@@ -10,6 +10,7 @@ An ergonomic, lightweight React component for smart, responsive images with opti
   - `lqip` via a low‑quality background image
 - Works with any image CDN via a `transformUrl` function
 - Types included, ESM and CJS builds, tree‑shakable
+- Viewport‑based powered by Intersection Observer
 
 ## Installation
 
@@ -56,6 +57,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   blurhash?: string; // required when placeholder = "blurhash"
   priority?: boolean; // eager vs lazy loading
   transformUrl?: (src: string, width?: number) => string; // adapt to your CDN
+  deferUntilInView?: boolean; // only start loading when visible in viewport
 }
 ```
 
@@ -65,6 +67,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 - `transformUrl` receives the original `src` and each `breakpoint` width, and should return the URL for that width. If omitted, a `?w={width}` parameter is appended.
 - `placeholder="lqip"` uses a background image `${src}?lqip` behind the main image while it loads.
 - Set `priority` to `true` to make the image load eagerly.
+- Set `deferUntilInView` to `true` to avoid assigning `src`/`srcSet`/`sizes` until the image is inside the viewport (via Intersection Observer with a default `rootMargin` of `0px 0px 200px 0px`).
 
 ## Examples
 
@@ -100,6 +103,37 @@ BlurHash placeholder:
   placeholder="blurhash"
   blurhash="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
 />
+```
+
+Viewport‑based loading:
+
+```tsx
+<Image
+  src="https://cdn.example.com/img.jpg"
+  alt="Sample"
+  width={1200}
+  height={800}
+  breakpoints={{ 640: 640, 1024: 1024, 1440: 1440 }}
+  deferUntilInView
+/>
+```
+
+Advanced: use the `useInView` hook directly
+
+```tsx
+import { useInView, Image } from "@sarthak61199/react-smart-image";
+
+function Custom() {
+  const [ref, inView] = useInView({ rootMargin: "0px 0px 300px 0px", threshold: 0 });
+  return (
+    <Image
+      ref={ref as any}
+      src="https://cdn.example.com/img.jpg"
+      alt="Sample"
+      deferUntilInView={!inView}
+    />
+  );
+}
 ```
 
 ## TypeScript

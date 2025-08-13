@@ -13,6 +13,7 @@ type BaseImageProps = Omit<
   breakpoints?: Breakpoints;
   priority?: boolean;
   transformUrl?: (src: string, width?: number) => string;
+  deferUntilInView?: boolean;
 };
 
 type BlurhashPlaceholderProps = BaseImageProps & {

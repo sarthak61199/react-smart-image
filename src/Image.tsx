@@ -53,17 +53,17 @@ export const Image = ({
 
   // LQIP placeholder: Instead of hardcoded ?lqip, allow transformUrl to decide a low-quality variant if provided.
   const lqipStyleBackground = useMemo(() => {
-    if (placeholder !== "lqip" || loaded) return undefined;
+    if (placeholder !== "lqip") return undefined;
     if (transformUrl) {
       // Convention: width very small (e.g., 16) to get tiny image; user transformUrl can interpret
       return transformUrl(src, 16);
     }
     return `${src}?lqip`;
-  }, [placeholder, loaded, transformUrl, src]);
+  }, [placeholder, transformUrl, src]);
 
   return (
     <div style={{ position: "relative", ...aspectStyle }}>
-      {placeholder === "blurhash" && blurhash && !loaded && (
+      {placeholder === "blurhash" && blurhash && (
         <canvas
           ref={canvasRef}
           width={32}
@@ -81,7 +81,7 @@ export const Image = ({
         />
       )}
 
-      {placeholder === "lqip" && !loaded && lqipStyleBackground && (
+      {placeholder === "lqip" && lqipStyleBackground && (
         <div
           style={{
             backgroundImage: `url(${lqipStyleBackground})`,

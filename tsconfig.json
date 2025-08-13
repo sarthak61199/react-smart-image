@@ -12,8 +12,9 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src"],
+  "include": ["src/**/*", "tests/**/*", "**/*.test.*", "**/*.spec.*"],
   "exclude": ["dist", "node_modules"]
 }

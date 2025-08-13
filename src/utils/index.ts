@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { Breakpoints } from "./types";
+import { Breakpoints } from "../types";
 
 export const getSrcSet = (
   breakpoints: Breakpoints | undefined,
@@ -34,9 +34,8 @@ export const getSizes = (breakpoints: Breakpoints | undefined) => {
   return entries
     .map(([bp, val]) => {
       // If value is a number treat as px, otherwise use as-is (e.g. 50vw)
-      return `(min-width: ${bp}px) ${
-        typeof val === "number" ? `${val}px` : val
-      }`;
+      return `(min-width: ${bp}px) ${typeof val === "number" ? `${val}px` : val
+        }`;
     })
     .join(", ");
 };
@@ -46,7 +45,7 @@ export const getAspectStyle = (
   height: number | undefined,
   style: CSSProperties = {}
 ) => {
-  return width && height
+  return width !== undefined && height !== undefined && width !== 0
     ? { aspectRatio: `${width} / ${height}`, ...style }
     : style;
 };
